@@ -1,0 +1,45 @@
+.header__component {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+ /*  position: fixed;
+  width: 100%; */
+  min-height: 8vh;
+}
+
+.header__logo {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+  margin-left: 50px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 20px;
+  font-weight: lighter;
+  font-family: 'MedievalSharp', cursive;
+}
+
+.header__logo h4 {
+  letter-spacing: 1px;
+}
+
+.header__nav {
+  display: flex;
+  justify-content: space-evenly;
+  width: 50%;
+  list-style: none;
+  margin-right: 50px;
+  font-size: 15px;
+}
+
+.nav__links {
+  letter-spacing: 3px;
+  font-weight: bold;
+}
+
+.nav__links a {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.nav__links a:hover {
+  color: rgba(255, 255, 255, 1);
+}

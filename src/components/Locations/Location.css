@@ -1,0 +1,21 @@
+.location__container{
+    height: 100dvh;
+}
+
+.location__div {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.location__article {
+  width: 15%;
+  background: rgb(210, 157, 71);
+  margin: 20px 0;
+  box-shadow: -1px 10px 27px 8px rgba(0, 0, 0, 0.4);
+}
+
+.location__article img {
+  width: 100%;
+  height: 60%;
+}

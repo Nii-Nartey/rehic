@@ -1,0 +1,32 @@
+.home__content {
+  font-size: 43px;
+}
+
+.home__text {
+  position: absolute;
+  z-index: 1;
+}
+
+.home__logo {
+  position: absolute;
+}
+
+.home__img {
+  position: absolute;
+  background: radial-gradient(at center center, #2d7d9270 0%, #1c40617c 100%),
+    url('./images/church.jpg');
+  height: 80%;
+  width: 70%;
+  background-position: center;
+  background-size: cover;
+  right: 1px;
+}
+
+/* .home__img img{
+
+} */
+
+.home__logo img {
+  height: 150px;
+  width: 150px;
+}
