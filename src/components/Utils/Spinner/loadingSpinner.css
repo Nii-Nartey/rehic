@@ -1,0 +1,15 @@
+.thespin {
+  color: red;
+  user-select: none;
+}
+
+.spin-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  width: 100%;
+  position: relative;
+}

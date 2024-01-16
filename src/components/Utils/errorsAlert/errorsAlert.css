@@ -1,0 +1,11 @@
+.alert.alert-danger {
+  position: absolute;
+  top: 20px;
+  z-index: 1;
+  transition: all ease 2s;
+}
+
+.alert.alert-danger.reddy {
+  transition: all ease 2s;
+  transform:translateX(400%)
+}

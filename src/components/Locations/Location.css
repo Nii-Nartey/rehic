@@ -1,5 +1,6 @@
-.location__container{
-    height: 100dvh;
+.location__container {
+  height: 100dvh;
+  overflow: hidden;
 }
 
 .location__div {

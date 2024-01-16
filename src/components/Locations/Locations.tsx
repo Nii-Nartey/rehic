@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import './Location.css';
 import axios from 'axios';
 import LocationdData from './LocationData/LocationdData.tsx';
-import LoadingSpinner from '../Utils/LoadingSpinner.tsx';
+import LoadingSpinner from '../Utils/Spinner/LoadingSpinner.tsx';
+import RedError from '../Utils/errorsAlert/RedError.tsx';
 
 const Locations = () => {
   interface GifDataSchema {
@@ -18,10 +19,12 @@ const Locations = () => {
 
   const [gifsData, setGifsData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const getGifs = async () => {
     try {
       setIsLoading(true);
+      setIsError(false);
       const response = await axios.get(
         'https://api.giphy.com/v1/gifs/trending',
         {
@@ -34,8 +37,12 @@ const Locations = () => {
       setGifsData(response.data.data);
       setIsLoading(false);
     } catch (error) {
-      console.log(error);
+      setIsError(true);
     }
+  };
+
+  const isErrorHandler = () => {
+    return isError ? <RedError theMsg={'Network Error'} /> : '';
   };
 
   useEffect(() => {
@@ -44,7 +51,12 @@ const Locations = () => {
 
   const renderGifHandler = () => {
     if (isLoading) {
-      return <LoadingSpinner />;
+      return (
+        <div className='spin-container'>
+          {isErrorHandler()}
+          <LoadingSpinner />
+        </div>
+      );
     }
     return gifsData.map((el: GifDataSchema) => (
       <LocationdData
