@@ -8,7 +8,7 @@ interface PropsSchema {
 const LocationdData = (props: PropsSchema) => (
   <article className='location__article'>
     <img src={props.src} alt={props.alt} />
-    <h3 className='location__name'>{props.title}</h3>
+    <h5 className='location__name'>{props.title}</h5>
     <div className='location__info'>
       <div className='days'>{props.text}</div>
     </div>

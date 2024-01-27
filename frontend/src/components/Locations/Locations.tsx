@@ -4,6 +4,7 @@ import axios from 'axios';
 import LocationdData from './LocationData/LocationdData.tsx';
 import LoadingSpinner from '../Utils/Spinner/LoadingSpinner.tsx';
 import RedError from '../Utils/errorsAlert/RedError.tsx';
+import Pagination from '../pagination/Pagination.tsx';
 
 /* ========== COMPONENT ======== */
 const Locations = () => {
@@ -28,6 +29,10 @@ const Locations = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [userInput, setUserInput] = useState('');
+  const itemsPerPage = 12;
+  const [currentPageIndex, setCurrentPageIndex] = useState(1);
+  const lastItemIndex = currentPageIndex * itemsPerPage;
+  const firstItemIndex = lastItemIndex - itemsPerPage;
 
   /* ============== GIF REQUEST FUNCTION  =============== */
   const getGifs = async () => {
@@ -39,11 +44,12 @@ const Locations = () => {
         {
           params: {
             api_key: 'nAcqeqTWW7AuP8ILRRZs7MKRPU133gKT',
-            limit: 5,
+            limit: 50,
           },
         }
       );
       setGifsData(response.data.data);
+      console.log(response.data.data.length, 'is the length');
       setIsLoading(false);
     } catch (error) {
       setIsError(true);
@@ -67,7 +73,15 @@ const Locations = () => {
         </div>
       );
     }
-    return gifsData.map((el: GifDataSchema) => (
+
+    const currentGifData = () => {
+      const currentArray = gifsData.slice(firstItemIndex, lastItemIndex);
+      return currentArray;
+    };
+
+    const newArray = currentGifData();
+
+    return newArray.map((el: GifDataSchema) => (
       <LocationdData
         key={el.id}
         src={el.images.fixed_height.url}
@@ -77,6 +91,7 @@ const Locations = () => {
       />
     ));
   };
+
   /* ==================    USE EFFECTS    ========================= */
   useEffect(() => {
     getGifs();
@@ -86,21 +101,22 @@ const Locations = () => {
   const searchGifHandler = async (e: EventSchema) => {
     try {
       setIsLoading(true);
-      const theInput = e.target.value?.toString() || userInput;
+      const theInput = e.target.value?.toString() || '';
       console.log(theInput);
       setUserInput(theInput);
       const response = await axios.get('https://api.giphy.com/v1/gifs/search', {
         params: {
           api_key: 'nAcqeqTWW7AuP8ILRRZs7MKRPU133gKT',
-          limit: 5,
+          limit: 50,
           q: theInput,
         },
       });
-      if (response.data.data[0]) {
+      if (response.data.data.length > 0) {
         setGifsData(response.data.data);
         setIsLoading(false);
-      } else {
-        throw new Error('No gifs by this name');
+      }
+      if (theInput === '') {
+        getGifs();
       }
     } catch (error) {
       setIsLoading(true);
@@ -112,7 +128,8 @@ const Locations = () => {
   const clickSearchHandler = () => {
     /* searchGifHandler(e); */
     console.log(
-      'does nothing atm, you can uncomment the code above for it to work'
+      `does nothing atm, you can uncomment 
+      the code above for it to work`
     );
   };
 
@@ -139,7 +156,15 @@ const Locations = () => {
         </div>
       </div>
 
-      <div className='location__div'>{renderGifHandler()}</div>
+      <div className='location__div'>
+        <Pagination
+          itemsPerPage={itemsPerPage}
+          currentPageIndex={currentPageIndex}
+          setCurrentPageIndex={setCurrentPageIndex}
+          totalNumGifs={gifsData.length}
+        />
+        {renderGifHandler()}
+      </div>
     </section>
   );
 };

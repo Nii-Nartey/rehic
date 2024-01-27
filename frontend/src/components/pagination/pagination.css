@@ -1,0 +1,11 @@
+.pagination-nav {
+  display: flex;
+  width: 100%;
+  justify-content: end;
+  height: 35px;
+  margin-top: 10px;
+}
+
+/* .pagination.pagination-sm {
+}
+ */
